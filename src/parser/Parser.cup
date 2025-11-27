@@ -1,0 +1,195 @@
+import java.util.ArrayList;
+import java.util.List;
+import java_cup.runtime.*;
+
+parser code {:
+    private List<String> reglasAplicadas = new ArrayList<>();
+
+    public List<String> getReglasAplicadas() {
+        return reglasAplicadas;
+    }
+
+    public void report_error(String message, Object info) {
+        System.err.println("Error: " + message);
+    }
+:};
+
+terminal DECVAR, ENDDECVAR, PROGRAM_SECTION, ENDPROGRAM_SECTION;
+terminal SHOW, MAP, REPEAT, UNTIL, IF, ELSE, NOT;
+terminal INT, FLOAT, STRING;
+terminal PLUS, MINUS, MULT, DIV;
+terminal LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
+terminal EQUAL, NOT_EQUAL;
+terminal AND, OR;
+terminal ASSIGN;
+terminal COLON, SEMICOLON, COMMA;
+terminal LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET;
+terminal ID, CONST_INT, CONST_FLOAT, CONST_STRING, CONST_HEX;
+
+non terminal programa, declaraciones, declaracion, tipo;
+non terminal sentencias, sentencia;
+non terminal assign, escritura, repeat, if;
+non terminal expresion, termino, factor;
+non terminal comparacion, condicion;
+non terminal map, lista_expresiones, operador, cte;
+
+start with programa;
+
+/* ======================================
+   GRAMÁTICA CON REGLAS NUMERADAS
+   ====================================== */
+
+programa ::=
+      DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
+      {: reglasAplicadas.add("[Regla 1] programa → DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION"); :}
+    ;
+
+declaraciones ::=
+      declaraciones declaracion
+      {: reglasAplicadas.add("[Regla 2] declaraciones → declaraciones declaracion"); :}
+    | declaracion
+      {: reglasAplicadas.add("[Regla 3] declaraciones → declaracion"); :}
+    ;
+
+declaracion ::=
+      ID COLON tipo
+      {: reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo"); :}
+    ;
+
+tipo ::=
+      INT
+      {: reglasAplicadas.add("[Regla 5] tipo → INT"); :}
+    | FLOAT
+      {: reglasAplicadas.add("[Regla 6] tipo → FLOAT"); :}
+    | STRING
+      {: reglasAplicadas.add("[Regla 7] tipo → STRING"); :}
+    ;
+
+sentencias ::=
+      sentencias sentencia
+      {: reglasAplicadas.add("[Regla 8] sentencias → sentencias sentencia"); :}
+    | sentencia
+      {: reglasAplicadas.add("[Regla 9] sentencias → sentencia"); :}
+    ;
+
+sentencia ::=
+      assign
+      {: reglasAplicadas.add("[Regla 10] sentencia → assign"); :}
+    | escritura
+      {: reglasAplicadas.add("[Regla 11] sentencia → escritura"); :}
+    | repeat
+      {: reglasAplicadas.add("[Regla 12] sentencia → repeat"); :}
+    | if
+      {: reglasAplicadas.add("[Regla 13] sentencia → if"); :}
+    ;
+
+assign ::=
+      ID ASSIGN expresion
+      {: reglasAplicadas.add("[Regla 14] assign → ID ASSIGN expresion"); :}
+    ;
+
+escritura ::=
+      SHOW cte
+      {: reglasAplicadas.add("[Regla 15] escritura → SHOW cte"); :}
+    | SHOW ID
+      {: reglasAplicadas.add("[Regla 16] escritura → SHOW ID"); :}
+    ;
+
+repeat ::=
+      REPEAT LBRACE sentencias RBRACE UNTIL LPAREN condicion RPAREN
+      {: reglasAplicadas.add("[Regla 17] repeat → REPEAT LBRACE sentencias RBRACE UNTIL LPAREN condicion RPAREN"); :}
+    ;
+
+if ::=
+      IF LPAREN condicion RPAREN LBRACE sentencias RBRACE ELSE LBRACE sentencias RBRACE
+      {: reglasAplicadas.add("[Regla 18] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE ELSE LBRACE sentencias RBRACE"); :}
+    | IF LPAREN condicion RPAREN LBRACE sentencias RBRACE
+      {: reglasAplicadas.add("[Regla 19] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE"); :}
+    ;
+
+expresion ::=
+      expresion PLUS termino
+      {: reglasAplicadas.add("[Regla 20] expresion → expresion PLUS termino"); :}
+    | expresion MINUS termino
+      {: reglasAplicadas.add("[Regla 21] expresion → expresion MINUS termino"); :}
+    | termino
+      {: reglasAplicadas.add("[Regla 22] expresion → termino"); :}
+    ;
+
+termino ::=
+      termino MULT factor
+      {: reglasAplicadas.add("[Regla 23] termino → termino MULT factor"); :}
+    | termino DIV factor
+      {: reglasAplicadas.add("[Regla 24] termino → termino DIV factor"); :}
+    | factor
+      {: reglasAplicadas.add("[Regla 25] termino → factor"); :}
+    ;
+
+factor ::=
+      ID
+      {: reglasAplicadas.add("[Regla 26] factor → ID"); :}
+    | CONST_FLOAT
+      {: reglasAplicadas.add("[Regla 27] factor → CONST_FLOAT"); :}
+    | CONST_INT
+      {: reglasAplicadas.add("[Regla 28] factor → CONST_INT"); :}
+    | CONST_HEX
+      {: reglasAplicadas.add("[Regla 29] factor → CONST_HEX"); :}
+    | LPAREN expresion RPAREN
+      {: reglasAplicadas.add("[Regla 30] factor → LPAREN expresion RPAREN"); :}
+    | map
+      {: reglasAplicadas.add("[Regla 31] factor → map"); :}
+    ;
+
+comparacion ::=
+      expresion EQUAL expresion
+      {: reglasAplicadas.add("[Regla 32] comparacion → expresion EQUAL expresion"); :}
+    | expresion NOT_EQUAL expresion
+      {: reglasAplicadas.add("[Regla 33] comparacion → expresion NOT_EQUAL expresion"); :}
+    | expresion GREATER expresion
+      {: reglasAplicadas.add("[Regla 34] comparacion → expresion GREATER expresion"); :}
+    | expresion GREATER_EQUAL expresion
+      {: reglasAplicadas.add("[Regla 35] comparacion → expresion GREATER_EQUAL expresion"); :}
+    | expresion LESS expresion
+      {: reglasAplicadas.add("[Regla 36] comparacion → expresion LESS expresion"); :}
+    | expresion LESS_EQUAL expresion
+      {: reglasAplicadas.add("[Regla 37] comparacion → expresion LESS_EQUAL expresion"); :}
+    ;
+
+condicion ::=
+      comparacion AND comparacion
+      {: reglasAplicadas.add("[Regla 38] condicion → comparacion AND comparacion"); :}
+    | comparacion OR comparacion
+      {: reglasAplicadas.add("[Regla 39] condicion → comparacion OR comparacion"); :}
+    | NOT comparacion
+      {: reglasAplicadas.add("[Regla 40] condicion → NOT comparacion"); :}
+    ;
+
+map ::=
+      MAP LPAREN operador cte COMMA LBRACKET lista_expresiones RBRACKET RPAREN
+      {: reglasAplicadas.add("[Regla 41] map → MAP LPAREN operador cte COMMA LBRACKET lista_expresiones RBRACKET RPAREN"); :}
+    ;
+
+lista_expresiones ::=
+      lista_expresiones COMMA expresion
+      {: reglasAplicadas.add("[Regla 42] lista_expresiones → lista_expresiones COMMA expresion"); :}
+    | expresion
+      {: reglasAplicadas.add("[Regla 43] lista_expresiones → expresion"); :}
+    ;
+
+operador ::=
+      PLUS
+      {: reglasAplicadas.add("[Regla 44] operador → PLUS"); :}
+    | MULT
+      {: reglasAplicadas.add("[Regla 45] operador → MULT"); :}
+    ;
+
+cte ::=
+      CONST_INT
+      {: reglasAplicadas.add("[Regla 46] cte → CONST_INT"); :}
+    | CONST_FLOAT
+      {: reglasAplicadas.add("[Regla 47] cte → CONST_FLOAT"); :}
+    | CONST_STRING
+      {: reglasAplicadas.add("[Regla 48] cte → CONST_STRING"); :}
+    | CONST_HEX
+      {: reglasAplicadas.add("[Regla 49] cte → CONST_HEX"); :}
+    ;
