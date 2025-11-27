@@ -1,4 +1,3 @@
-import java_cup.runtime.Scanner;
 import lexico.Lexico;
 import parser.Parser;
 
@@ -309,7 +308,6 @@ public class InterfazGrafica {
         editorTextoRespuesta = new JTextArea();
         for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
-            System.out.println(linea);
         }
     }
 
@@ -325,7 +323,6 @@ public class InterfazGrafica {
             throw new FileNotFoundException("No se encontró el archivo a compilar.");
         }
         lexico = new Lexico(new FileReader(this.archivo));
-        //lexico.next_token();
         parser = new Parser(this.lexico);
         parser.parse();
         lexico.crearArchivoTabla();
@@ -333,7 +330,4 @@ public class InterfazGrafica {
         crearTabla();
         pantallaRespuestaParser();
     }
-
-
-
 }

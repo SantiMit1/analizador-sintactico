@@ -15,7 +15,7 @@ parser code {:
 :};
 
 terminal DECVAR, ENDDECVAR, PROGRAM_SECTION, ENDPROGRAM_SECTION;
-terminal SHOW, MAP, REPEAT, UNTIL, IF, ELSE, NOT;
+terminal SHOW, MAP, REPEAT, UNTIL, IF, ELSE;
 terminal INT, FLOAT, STRING;
 terminal PLUS, MINUS, MULT, DIV;
 terminal LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
@@ -77,7 +77,7 @@ sentencia ::=
       {: reglasAplicadas.add("[Regla 12] sentencia → repeat"); :}
     | if
       {: reglasAplicadas.add("[Regla 13] sentencia → if"); :}
-     | map
+    | map
       {: reglasAplicadas.add("[Regla 50] expresion → map"); :}
     ;
 
@@ -158,8 +158,6 @@ condicion ::=
       {: reglasAplicadas.add("[Regla 38] condicion → comparacion AND comparacion"); :}
     | comparacion OR comparacion
       {: reglasAplicadas.add("[Regla 39] condicion → comparacion OR comparacion"); :}
-    | NOT comparacion
-      {: reglasAplicadas.add("[Regla 40] condicion → NOT comparacion"); :}
     ;
 
 map ::=

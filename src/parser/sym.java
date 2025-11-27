@@ -8,47 +8,46 @@ public class sym {
   /* terminals */
   public static final int MAP = 7;
   public static final int SHOW = 6;
-  public static final int LBRACKET = 36;
-  public static final int MULT = 18;
-  public static final int NOT_EQUAL = 25;
-  public static final int LPAREN = 32;
-  public static final int GREATER = 22;
+  public static final int LBRACKET = 35;
+  public static final int MULT = 17;
+  public static final int NOT_EQUAL = 24;
+  public static final int LPAREN = 31;
+  public static final int GREATER = 21;
   public static final int REPEAT = 8;
-  public static final int INT = 13;
-  public static final int LESS = 20;
-  public static final int MINUS = 17;
-  public static final int RPAREN = 33;
-  public static final int NOT = 12;
-  public static final int SEMICOLON = 30;
-  public static final int AND = 26;
+  public static final int INT = 12;
+  public static final int LESS = 19;
+  public static final int MINUS = 16;
+  public static final int RPAREN = 32;
+  public static final int SEMICOLON = 29;
+  public static final int AND = 25;
   public static final int ENDDECVAR = 3;
-  public static final int OR = 27;
-  public static final int COMMA = 31;
-  public static final int DIV = 19;
+  public static final int OR = 26;
+  public static final int COMMA = 30;
+  public static final int DIV = 18;
   public static final int UNTIL = 9;
-  public static final int LESS_EQUAL = 21;
-  public static final int CONST_FLOAT = 40;
-  public static final int PLUS = 16;
-  public static final int ASSIGN = 28;
+  public static final int LESS_EQUAL = 20;
+  public static final int CONST_FLOAT = 39;
+  public static final int PLUS = 15;
+  public static final int ASSIGN = 27;
   public static final int IF = 10;
-  public static final int ID = 38;
+  public static final int ID = 37;
   public static final int EOF = 0;
-  public static final int RBRACKET = 37;
-  public static final int EQUAL = 24;
-  public static final int GREATER_EQUAL = 23;
+  public static final int RBRACKET = 36;
+  public static final int EQUAL = 23;
+  public static final int GREATER_EQUAL = 22;
   public static final int error = 1;
   public static final int DECVAR = 2;
-  public static final int COLON = 29;
-  public static final int LBRACE = 34;
+  public static final int COLON = 28;
+  public static final int LBRACE = 33;
   public static final int ELSE = 11;
-  public static final int FLOAT = 14;
-  public static final int RBRACE = 35;
-  public static final int CONST_STRING = 41;
+  public static final int FLOAT = 13;
+  public static final int RBRACE = 34;
+  public static final int CONST_STRING = 40;
   public static final int PROGRAM_SECTION = 4;
-  public static final int STRING = 15;
+  public static final int STRING = 14;
   public static final int ENDPROGRAM_SECTION = 5;
-  public static final int CONST_INT = 39;
-  public static final int CONST_HEX = 42;
+  public static final int CONST_INT = 38;
+  public static final int CONST_HEX = 41;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -62,7 +61,6 @@ public class sym {
   "UNTIL",
   "IF",
   "ELSE",
-  "NOT",
   "INT",
   "FLOAT",
   "STRING",
