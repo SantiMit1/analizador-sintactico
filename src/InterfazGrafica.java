@@ -1,4 +1,6 @@
+import java_cup.runtime.Scanner;
 import lexico.Lexico;
+import parser.Parser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +15,19 @@ public class InterfazGrafica {
     JFrame ventanaPrincipal;
     JFrame ventanaEditor;
     JFrame pantallaRespuesta;
+    JFrame pantallaParser;
     JFrame ventanaTabla;
 
     //Contenedores
     JPanel contPrincipal;
     JPanel contRespuesta;
+    JPanel contParser;
     JPanel contTitulo;
 
     //Entrada de texto
     JTextArea editorTexto;
     JTextArea editorTextoRespuesta;
+    JTextArea editorTextoParser;
     JTextArea editorTextoTabla;
 
     //Entrada de archivo
@@ -35,21 +40,24 @@ public class InterfazGrafica {
     JButton compilar;
     JButton salir;
     JButton salirRespuesta;
+    JButton salirParser;
     JButton salirTabla;
 
     //Scroll
     JScrollPane panelScrolleable;
     JScrollPane panelScrolleableEditor;
     JScrollPane panelScrolleableRespuesta;
-    JScrollPane getPanelScrolleableTabla;
-
-
+    JScrollPane panelScrolleableParser;
+    JScrollPane panelScrolleableTabla;
 
     //Archivo a cargar
     File archivo;
 
     //Variable de tipo Lexico
     Lexico lexico;
+
+    Parser parser;
+
 
     //Variable de tipo ArrayList para la respuesta del Lexico
     List<String> respuesta;
@@ -102,11 +110,6 @@ public class InterfazGrafica {
                 ventanaEditor.setVisible(true);
             }
         });
-
-//     ----------------- LE DAMOS UN TOQUE DE ESTILO ------------------
-        //contPrincipal.setBackground(Color.DARK_GRAY);
-        //contTitulo.setBackground(Color.DARK_GRAY);
-        //contTitulo.setForeground(Color.lightGray);
     }
 
     // ---------------- PANTALLA RESPUESTA -------------------------------
@@ -176,6 +179,8 @@ public class InterfazGrafica {
                     compilarArchivo();
                 } catch (IOException ex) {
                     throw new Error("Error al compilar el archivo");
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
                 pantallaRespuesta();
             }
@@ -197,14 +202,15 @@ public class InterfazGrafica {
         editorTextoTabla = new JTextArea();
         editorTextoTabla.setEditable(false);
         editorTextoTabla.setText(lexico.stringTabla());
+        editorTextoTabla.setText(lexico.stringTabla());
         editorTextoTabla.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
-        getPanelScrolleableTabla = new JScrollPane(editorTextoTabla);
+        panelScrolleableTabla = new JScrollPane(editorTextoTabla);
         salirTabla = new JButton("Salir");
 
-        ventanaTabla = new JFrame("Tabla de Simbolos");
+        ventanaTabla = new JFrame("Tabla de simbolos");
         ventanaTabla.setLayout(new BorderLayout());
-        ventanaTabla.add(getPanelScrolleableTabla, BorderLayout.CENTER);
+        ventanaTabla.add(panelScrolleableTabla, BorderLayout.CENTER);
         ventanaTabla.add(salirTabla, BorderLayout.SOUTH);
         ventanaTabla.setSize(800, 600);
         ventanaTabla.setLocationRelativeTo(null);
@@ -218,6 +224,41 @@ public class InterfazGrafica {
         });
     }
 
+    public void pantallaRespuestaParser(){
+        //Creo ventana
+        pantallaParser = new JFrame("Reglas");
+        pantallaParser.setSize(800, 600);
+        pantallaParser.setLocationRelativeTo(null);
+        //Creo panel de la ventana
+        contParser = new JPanel(new BorderLayout());
+        //Creo el editor para mostrar la respuesta
+        editorTextoParser = new JTextArea();
+        editorTextoParser.setEditable(false);
+        editorTextoParser.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+        //Creo boton para salir
+        salirParser = new JButton("Salir");
+
+        //Llamo al metodo para obtener la respuesta en el
+        cargarReglasParser();
+
+        contParser.add(editorTextoParser);
+
+        //Barra de scroll
+        panelScrolleableParser = new JScrollPane(contParser);
+
+        //Ventana de respuesta
+        pantallaParser.add(panelScrolleableParser, BorderLayout.CENTER);
+        pantallaParser.add(salirParser, BorderLayout.SOUTH);
+        pantallaParser.setVisible(true);
+
+        salirParser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarEditor(pantallaParser);
+            }
+        });
+    }
 
     // ---------------- METODOS DE LOS BOTONES ---------------------------
     public void guardarArchivo() {
@@ -268,22 +309,31 @@ public class InterfazGrafica {
         editorTextoRespuesta = new JTextArea();
         for (String linea : lexico.getRespuesta()) {
             editorTextoRespuesta.append(linea + "\n");
+            System.out.println(linea);
         }
     }
 
-    public void compilarArchivo() throws IOException {
+    public void cargarReglasParser(){
+        editorTextoParser = new JTextArea();
+        for (String linea : parser.getReglasAplicadas()) {
+            editorTextoParser.append(linea + "\n");
+        }
+    }
+
+    public void compilarArchivo() throws Exception {
         if (archivo == null || !archivo.exists()) {
             throw new FileNotFoundException("No se encontró el archivo a compilar.");
         }
         lexico = new Lexico(new FileReader(this.archivo));
-        lexico.next_token();
+        //lexico.next_token();
+        parser = new Parser(this.lexico);
+        parser.parse();
         lexico.crearArchivoTabla();
         cargarTexto();
         crearTabla();
+        pantallaRespuestaParser();
     }
 
-
-    // --------------- STYLE ------------------------------
 
 
 }
