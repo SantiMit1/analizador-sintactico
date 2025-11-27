@@ -1,7 +1,12 @@
 DECVAR
-    var1 : INT
+x : INT
+y : FLOAT
+z : STRING
 ENDDECVAR
 
 PROGRAM.SECTION
-var1 := 123
+
+x := 10
+MAP(+10, [10, x])
+
 ENDPROGRAM.SECTION

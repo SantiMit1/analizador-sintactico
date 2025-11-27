@@ -35,10 +35,6 @@ non terminal map, lista_expresiones, operador, cte;
 
 start with programa;
 
-/* ======================================
-   GRAMÁTICA CON REGLAS NUMERADAS
-   ====================================== */
-
 programa ::=
       DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
       {: reglasAplicadas.add("[Regla 1] programa → DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION"); :}
@@ -81,6 +77,8 @@ sentencia ::=
       {: reglasAplicadas.add("[Regla 12] sentencia → repeat"); :}
     | if
       {: reglasAplicadas.add("[Regla 13] sentencia → if"); :}
+     | map
+      {: reglasAplicadas.add("[Regla 50] expresion → map"); :}
     ;
 
 assign ::=
