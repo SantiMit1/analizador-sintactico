@@ -1,8 +1,8 @@
 package lexico;
 import java_cup.runtime.*;
 import java.util.*;
-import lexico.tabla.Fila;import lexico.tabla.Tabla;
-
+import lexico.tabla.Fila;
+import lexico.tabla.Tabla;
 
 %%
 
@@ -28,9 +28,6 @@ import lexico.tabla.Fila;import lexico.tabla.Tabla;
         public void crearArchivoTabla() {
             tabla.crearArchivo();
         }
-
-
-
 %}
 
 %state COMMENT
@@ -48,62 +45,54 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 
 <YYINITIAL> {
 
-"INT"               {respuesta.add("Token INT encontrado, Lexema " + yytext());}
-"FLOAT"             {respuesta.add("Token FLOAT encontrado, Lexema " + yytext());}
+"INT"               {respuesta.add("Token INT encontrado, Lexema " + yytext()); return new Symbol(sym.INT, yytext());}
+"FLOAT"             {respuesta.add("Token FLOAT encontrado, Lexema " + yytext()); return new Symbol(sym.FLOAT, yytext());}
+"UNTIL"             {respuesta.add("Token UNTIL encontrado, Lexema " + yytext()); return new Symbol(sym.UNTIL, yytext());}
 
-"REPEAT"            {respuesta.add("Token REPEAT encontrado, Lexema " + yytext());}
-"IF"                {respuesta.add("Token IF encontrado, Lexema " + yytext());}
-"THEN"              {respuesta.add("Token THEN encontrado, Lexema " + yytext());}
-"ELSE"              {respuesta.add("Token ELSE encontrado, Lexema " + yytext());}
-"DECVAR"            {respuesta.add("Token DECVAR encontrado, Lexema " + yytext());}
-"ENDDECVAR"         {respuesta.add("Token ENDDECVAR encontrado, Lexema " + yytext());}
-"ENDPROGRAM\.SECTION" {respuesta.add("Token ENDPROGRAM_SECTION encontrado, Lexema " + yytext());}
-"PROGRAM\.SECTION"    {respuesta.add("Token PROGRAM_SECTION encontrado, Lexema " + yytext());}
-"SHOW"              {respuesta.add("Token SHOW encontrado, Lexema " + yytext());}
-"STRING"            {respuesta.add("Token STRING encontrado, Lexema " + yytext());}
-"MAP"               {respuesta.add("Token MAP encontrado, Lexema " + yytext());}
+"REPEAT"            {respuesta.add("Token REPEAT encontrado, Lexema " + yytext()); return new Symbol(sym.REPEAT, yytext());}
+"IF"                {respuesta.add("Token IF encontrado, Lexema " + yytext()); return new Symbol(sym.IF, yytext());}
+"ELSE"              {respuesta.add("Token ELSE encontrado, Lexema " + yytext()); return new Symbol(sym.ELSE, yytext());}
+"DECVAR"            {respuesta.add("Token DECVAR encontrado, Lexema " + yytext()); return new Symbol(sym.DECVAR, yytext());}
+"ENDDECVAR"         {respuesta.add("Token ENDDECVAR encontrado, Lexema " + yytext()); return new Symbol(sym.ENDDECVAR, yytext());}
+"ENDPROGRAM\.SECTION" {respuesta.add("Token ENDPROGRAM_SECTION encontrado, Lexema " + yytext()); return new Symbol(sym.ENDPROGRAM_SECTION, yytext());}
+"PROGRAM\.SECTION"    {respuesta.add("Token PROGRAM_SECTION encontrado, Lexema " + yytext()); return new Symbol(sym.PROGRAM_SECTION, yytext());}
+"SHOW"              {respuesta.add("Token SHOW encontrado, Lexema " + yytext()); return new Symbol(sym.SHOW, yytext());}
+"STRING"            {respuesta.add("Token STRING encontrado, Lexema " + yytext()); return new Symbol(sym.STRING, yytext());}
+"MAP"               {respuesta.add("Token MAP encontrado, Lexema " + yytext()); return new Symbol(sym.MAP, yytext());}
 
-":="                {respuesta.add("Token ASSIGN encontrado, Lexema " + yytext());}
-"+"                 {respuesta.add("Token PLUS encontrado, Lexema " + yytext());}
-"-"                 {respuesta.add("Token MINUS encontrado, Lexema " + yytext());}
-"*"                 {respuesta.add("Token MULT encontrado, Lexema " + yytext());}
-"/"                 {respuesta.add("Token DIV encontrado, Lexema " + yytext());}
-"<"                 {respuesta.add("Token LESS encontrado, Lexema " + yytext());}
-"<="                {respuesta.add("Token LESS_EQUAL encontrado, Lexema " + yytext());}
-">"                 {respuesta.add("Token GREATER encontrado, Lexema " + yytext());}
-">="                {respuesta.add("Token GREATER_EQUAL encontrado, Lexema " + yytext());}
-"=="                {respuesta.add("Token EQUAL encontrado, Lexema " + yytext());}
-"!="                {respuesta.add("Token NOT_EQUAL encontrado, Lexema " + yytext());}
-"&&"                {respuesta.add("Token AND encontrado, Lexema " + yytext());}
-"||"                {respuesta.add("Token OR encontrado, Lexema " + yytext());}
+":="                {respuesta.add("Token ASSIGN encontrado, Lexema " + yytext()); return new Symbol(sym.ASSIGN, yytext());}
+"+"                 {respuesta.add("Token PLUS encontrado, Lexema " + yytext()); return new Symbol(sym.PLUS, yytext());}
+"-"                 {respuesta.add("Token MINUS encontrado, Lexema " + yytext()); return new Symbol(sym.MINUS, yytext());}
+"*"                 {respuesta.add("Token MULT encontrado, Lexema " + yytext()); return new Symbol(sym.MULT, yytext());}
+"/"                 {respuesta.add("Token DIV encontrado, Lexema " + yytext()); return new Symbol(sym.DIV, yytext());}
+"<"                 {respuesta.add("Token LESS encontrado, Lexema " + yytext()); return new Symbol(sym.LESS, yytext());}
+"<="                {respuesta.add("Token LESS_EQUAL encontrado, Lexema " + yytext()); return new Symbol(sym.LESS_EQUAL, yytext());}
+">"                 {respuesta.add("Token GREATER encontrado, Lexema " + yytext()); return new Symbol(sym.GREATER, yytext());}
+">="                {respuesta.add("Token GREATER_EQUAL encontrado, Lexema " + yytext()); return new Symbol(sym.GREATER_EQUAL, yytext());}
+"=="                {respuesta.add("Token EQUAL encontrado, Lexema " + yytext()); return new Symbol(sym.EQUAL, yytext());}
+"!="                {respuesta.add("Token NOT_EQUAL encontrado, Lexema " + yytext()); return new Symbol(sym.NOT_EQUAL, yytext());}
+"&&"                {respuesta.add("Token AND encontrado, Lexema " + yytext()); return new Symbol(sym.AND, yytext());}
+"||"                {respuesta.add("Token OR encontrado, Lexema " + yytext()); return new Symbol(sym.OR, yytext());}
 
-":"                 {respuesta.add("Token COLON encontrado, Lexema " + yytext());}
-";"                 {respuesta.add("Token SEMICOLON encontrado, Lexema " + yytext());}
-","                 {respuesta.add("Token COMMA encontrado, Lexema " + yytext());}
-"("                 {respuesta.add("Token LPAREN encontrado, Lexema " + yytext());}
-")"                 {respuesta.add("Token RPAREN encontrado, Lexema " + yytext());}
-"["                 {respuesta.add("Token LBRACKET encontrado, Lexema " + yytext());}
-"]"                 {respuesta.add("Token RBRACKET encontrado, Lexema " + yytext());}
-"{"                 {respuesta.add("Token LBRACE encontrado, Lexema " + yytext());}
-"}"                 {respuesta.add("Token RBRACE encontrado, Lexema " + yytext());}
+":"                 {respuesta.add("Token COLON encontrado, Lexema " + yytext()); return new Symbol(sym.COLON, yytext());}
+";"                 {respuesta.add("Token SEMICOLON encontrado, Lexema " + yytext()); return new Symbol(sym.SEMICOLON, yytext());}
+","                 {respuesta.add("Token COMMA encontrado, Lexema " + yytext()); return new Symbol(sym.COMMA, yytext());}
+"("                 {respuesta.add("Token LPAREN encontrado, Lexema " + yytext()); return new Symbol(sym.LPAREN, yytext());}
+")"                 {respuesta.add("Token RPAREN encontrado, Lexema " + yytext()); return new Symbol(sym.RPAREN, yytext());}
+"["                 {respuesta.add("Token LBRACKET encontrado, Lexema " + yytext()); return new Symbol(sym.LBRACKET, yytext());}
+"]"                 {respuesta.add("Token RBRACKET encontrado, Lexema " + yytext()); return new Symbol(sym.RBRACKET, yytext());}
+"{"                 {respuesta.add("Token LBRACE encontrado, Lexema " + yytext()); return new Symbol(sym.LBRACE, yytext());}
+"}"                 {respuesta.add("Token RBRACE encontrado, Lexema " + yytext()); return new Symbol(sym.RBRACE, yytext());}
 
 "$*"                {commentLevel = 1; yybegin(COMMENT);}
 
-{ID}                {respuesta.add("Token ID encontrado, Lexema " + yytext());
+{ID}                {
                      tabla.agregarFila(new Fila(yytext(), "ID", null, null, null));
+                     respuesta.add("Token ID encontrado, Lexema " + yytext());
+                     return new Symbol(sym.ID, yytext());
                    }
       }
 {CONST_INT}         {
-
-
-
-
-
-
-
-
-
-
     try {
         long valor = Long.parseLong(yytext());
         if (valor < -32768 || valor > 32767) {
@@ -111,22 +100,22 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
         } else {
             respuesta.add("Token CONST_INT encontrado, Lexema " + yytext());
             tabla.agregarFila(new Fila("_" + yytext(), "CONST_INT", null, yytext(), null));
+            return new Symbol(sym.CONST_INT, yytext());
         }
     } catch (NumberFormatException e) {
         respuesta.add("CONST_INT inválido: " + yytext() + " en la linea " + yyline);
-
-
-
     }
 }
 {CONST_FLOAT}             {respuesta.add("Token CONST_FLOAT encontrado, Lexema " + yytext());
                            tabla.agregarFila(new Fila("_" + yytext(), "CONST_FLOAT", null, yytext(), null));
+                           return new Symbol(sym.CONST_FLOAT, yytext());
       }
 {CONST_HEX}               {respuesta.add("Token HEX encontrado, Lexema " + yytext());
                             String lexema = yytext();
                             String hex = lexema.substring(2);
                             int valorDecimal = Integer.parseInt(hex, 16);
                            tabla.agregarFila(new Fila(yytext(), "CONST_HEX", null, String.valueOf(valorDecimal), null));
+                            return new Symbol(sym.CONST_HEX, yytext());
       }
 {CONST_STRING}            {int largo = yytext().length() - 2;
                            String nombre = "_" + yytext().substring(1, yytext().length() - 1).replace(' ', '_');
@@ -135,12 +124,11 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
                           } else {
                               respuesta.add("Token CONST_STRING encontrado, Lexema " + yytext());
                               tabla.agregarFila(new Fila(nombre, "CONST_STRING", null, yytext(), largo));
+                                return new Symbol(sym.CONST_STRING, yytext());
                           }
                         }
 
 {ESPACIO}           {/* ignorar */}
-
-
 
 <COMMENT> {
 "$*"                {
