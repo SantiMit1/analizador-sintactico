@@ -1,5 +1,6 @@
 import lexico.Lexico;
 import parser.Parser;
+import tabla.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -198,10 +199,11 @@ public class Main {
     }
 
     public void crearTabla() {
+        Tabla tabla = Tabla.getInstancia();
+        tabla.crearArchivo();
         editorTextoTabla = new JTextArea();
         editorTextoTabla.setEditable(false);
-        editorTextoTabla.setText(lexico.stringTabla());
-        editorTextoTabla.setText(lexico.stringTabla());
+        editorTextoTabla.setText(tabla.toString());
         editorTextoTabla.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
         panelScrolleableTabla = new JScrollPane(editorTextoTabla);
@@ -325,7 +327,6 @@ public class Main {
         lexico = new Lexico(new FileReader(this.archivo));
         parser = new Parser(this.lexico);
         parser.parse();
-        lexico.crearArchivoTabla();
         cargarTexto();
         crearTabla();
         pantallaRespuestaParser();

@@ -21,13 +21,7 @@ import tabla.Tabla;
             return respuesta;
         }
 
-        private Tabla tabla = new Tabla();
-        public String stringTabla() {
-            return tabla.toString();
-        }
-        public void crearArchivoTabla() {
-            tabla.crearArchivo();
-        }
+        private Tabla tabla = Tabla.getInstancia();
 %}
 
 %state COMMENT
@@ -75,7 +69,6 @@ ID          = {LETRA}({LETRA}|{DIGITO}|_)*
 "||"                {respuesta.add("Token OR encontrado, Lexema " + yytext()); return new Symbol(sym.OR, yytext());}
 
 ":"                 {respuesta.add("Token COLON encontrado, Lexema " + yytext()); return new Symbol(sym.COLON, yytext());}
-";"                 {respuesta.add("Token SEMICOLON encontrado, Lexema " + yytext()); return new Symbol(sym.SEMICOLON, yytext());}
 ","                 {respuesta.add("Token COMMA encontrado, Lexema " + yytext()); return new Symbol(sym.COMMA, yytext());}
 "("                 {respuesta.add("Token LPAREN encontrado, Lexema " + yytext()); return new Symbol(sym.LPAREN, yytext());}
 ")"                 {respuesta.add("Token RPAREN encontrado, Lexema " + yytext()); return new Symbol(sym.RPAREN, yytext());}

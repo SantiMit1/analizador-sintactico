@@ -19,6 +19,14 @@ public class Fila {
         return nombre;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
     @Override
     public String toString() {
         return String.format("%-32s %-15s %-12s %-32s %-8s",

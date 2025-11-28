@@ -7,6 +7,17 @@ import java.util.List;
 
 public class Tabla {
     private final List<Fila> filas = new ArrayList<>();
+    public static Tabla instancia = null;
+
+    public static Tabla getInstancia() {
+        if (instancia == null) {
+            instancia = new Tabla();
+        }
+        return instancia;
+    }
+
+    private Tabla() {
+    }
 
     public void agregarFila(Fila fila) {
         String nombre = fila.getNombre();
@@ -23,6 +34,7 @@ public class Tabla {
         }
         return null;
     }
+
 
     @Override
     public String toString() {

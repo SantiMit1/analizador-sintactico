@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java_cup.runtime.*;
+import tabla.Tabla;
+import tabla.Fila;
 
 parser code {:
     private List<String> reglasAplicadas = new ArrayList<>();
@@ -8,6 +10,8 @@ parser code {:
     public List<String> getReglasAplicadas() {
         return reglasAplicadas;
     }
+
+    private Tabla tabla = Tabla.getInstancia();
 
     public void report_error(String message, Object info) {
         System.err.println("Error: " + message);
@@ -22,7 +26,7 @@ terminal LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
 terminal EQUAL, NOT_EQUAL;
 terminal AND, OR;
 terminal ASSIGN;
-terminal COLON, SEMICOLON, COMMA;
+terminal COLON, COMMA;
 terminal LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET;
 terminal ID, CONST_INT, CONST_FLOAT, CONST_STRING, CONST_HEX;
 
@@ -38,6 +42,8 @@ start with programa;
 programa ::=
       DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
       {: reglasAplicadas.add("[Regla 1] programa → DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION"); :}
+      | PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
+        {: reglasAplicadas.add("[Regla 51] programa → DECVAR ENDDECVAR PROGRAM_SECTION ENDPROGRAM_SECTION"); :}
     ;
 
 declaraciones ::=
@@ -48,8 +54,21 @@ declaraciones ::=
     ;
 
 declaracion ::=
-      ID COLON tipo
-      {: reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo"); :}
+      ID:id COLON tipo:t
+      {:
+              reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo");
+
+              String nombre = (String) ((Symbol) id).value;
+              String tipo   = (String) ((Symbol) t).value;
+
+              Fila fila = tabla.buscarFila(nombre);
+              if (fila == null) {
+                  fila = new Fila(nombre, "ID", null, null, 0);
+                  tabla.agregarFila(fila);
+              }
+
+              fila.setTipo(tipo);
+            :}
     ;
 
 tipo ::=
@@ -83,7 +102,9 @@ sentencia ::=
 
 assign ::=
       ID ASSIGN expresion
-      {: reglasAplicadas.add("[Regla 14] assign → ID ASSIGN expresion"); :}
+      {:
+        reglasAplicadas.add("[Regla 14] assign → ID ASSIGN expresion");
+      :}
     ;
 
 escritura ::=
