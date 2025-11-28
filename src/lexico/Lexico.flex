@@ -21,7 +21,7 @@ import lexico.tabla.Tabla;
             return respuesta;
         }
 
-        private Tabla tabla = Tabla.getInstancia();
+        private Tabla tabla = new Tabla();
         public String stringTabla() {
             return tabla.toString();
         }

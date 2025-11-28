@@ -6,21 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tabla {
-
-    // --- Singleton ---
-    private static Tabla instancia;
-    public static Tabla getInstancia() {
-        if (instancia == null) {
-            instancia = new Tabla();
-        }
-        return instancia;
-    }
-    // ------------------
-
     private final List<Fila> filas = new ArrayList<>();
-
-    // Constructor privado para evitar "new Tabla()"
-    private Tabla() {}
 
     public void agregarFila(Fila fila) {
         String nombre = fila.getNombre();
@@ -42,24 +28,29 @@ public class Tabla {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
+        // Línea superior
         sb.append("+").append("-".repeat(32)).append("+").append("-".repeat(15))
-                .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
-                .append("+").append("-".repeat(8)).append("+").append("\n");
+          .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
+          .append("+").append("-".repeat(8)).append("+").append("\n");
 
+        // Encabezado
         sb.append(String.format("| %-30s | %-13s | %-10s | %-30s | %-6s |\n",
-                "NOMBRE", "TOKEN", "TIPO", "VALOR", "LARGO"));
+                               "NOMBRE", "TOKEN", "TIPO", "VALOR", "LARGO"));
 
+        // Línea separadora
         sb.append("+").append("-".repeat(32)).append("+").append("-".repeat(15))
-                .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
-                .append("+").append("-".repeat(8)).append("+").append("\n");
+          .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
+          .append("+").append("-".repeat(8)).append("+").append("\n");
 
+        // Filas de datos
         for (Fila fila : filas) {
             sb.append("| ").append(fila.toString()).append(" |\n");
         }
 
+        // Línea inferior
         sb.append("+").append("-".repeat(32)).append("+").append("-".repeat(15))
-                .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
-                .append("+").append("-".repeat(8)).append("+").append("\n");
+          .append("+").append("-".repeat(12)).append("+").append("-".repeat(32))
+          .append("+").append("-".repeat(8)).append("+").append("\n");
 
         return sb.toString();
     }

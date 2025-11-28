@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java_cup.runtime.*;
-import lexico.tabla.Tabla;
-import lexico.tabla.Fila;
 
-Parser code {:
+parser code {:
     private List<String> reglasAplicadas = new ArrayList<>();
 
     public List<String> getReglasAplicadas() {
@@ -14,9 +12,6 @@ Parser code {:
     public void report_error(String message, Object info) {
         System.err.println("Error: " + message);
     }
-
-    private Tabla tabla = Tabla.getInstancia();
-
 :};
 
 terminal DECVAR, ENDDECVAR, PROGRAM_SECTION, ENDPROGRAM_SECTION;
@@ -53,18 +48,9 @@ declaraciones ::=
     ;
 
 declaracion ::=
-      ID:id COLON tipo:t
-      {:
-         reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo");
-         Fila fila = tabla.buscarFila(id);
-         if (fila == null) {
-             fila = new Fila(id, "ID", null, null, 0);
-             tabla.agregarFila(fila);
-         }
-         fila.setTipo(t);
-      :}
+      ID COLON tipo
+      {: reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo"); :}
     ;
-
 
 tipo ::=
       INT
