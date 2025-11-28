@@ -1,4 +1,4 @@
-package lexico.tabla;
+package tabla;
 
 public class Fila {
     private String nombre;

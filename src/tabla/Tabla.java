@@ -1,4 +1,4 @@
-package lexico.tabla;
+package tabla;
 
 import java.io.FileWriter;
 import java.io.IOException;

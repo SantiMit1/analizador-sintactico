@@ -1,8 +1,8 @@
 package lexico;
 import java_cup.runtime.*;
 import java.util.*;
-import lexico.tabla.Fila;
-import lexico.tabla.Tabla;
+import tabla.Fila;
+import tabla.Tabla;
 
 %%
 
