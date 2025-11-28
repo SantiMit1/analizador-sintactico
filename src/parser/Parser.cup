@@ -179,6 +179,8 @@ condicion ::=
       {: reglasAplicadas.add("[Regla 38] condicion → comparacion AND comparacion"); :}
     | comparacion OR comparacion
       {: reglasAplicadas.add("[Regla 39] condicion → comparacion OR comparacion"); :}
+    | comparacion
+      {: reglasAplicadas.add("[Regla 40] condicion → comparacion"); :}
     ;
 
 map ::=
