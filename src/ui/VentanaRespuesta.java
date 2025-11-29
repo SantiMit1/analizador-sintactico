@@ -25,7 +25,7 @@ public class VentanaRespuesta {
             }
         }
 
-        contRespuesta.add(editorTextoRespuesta);
+        contRespuesta.add(editorTextoRespuesta, BorderLayout.CENTER);
 
         JScrollPane panelScrolleable = new JScrollPane(contRespuesta);
 

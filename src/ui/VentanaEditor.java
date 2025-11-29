@@ -64,7 +64,7 @@ public class VentanaEditor {
 
     public void cargarContenido(String contenido) {
         if (contenido != null && editorTexto != null) {
-            editorTexto.append(contenido);
+            editorTexto.setText(contenido);
         }
     }
 

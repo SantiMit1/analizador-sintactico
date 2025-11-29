@@ -24,7 +24,6 @@ public class GestorArchivos {
             }
         } else {
             try {
-                new File("./").mkdirs();
                 archivo = new File("./archivo.txt");
 
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {

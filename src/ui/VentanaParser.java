@@ -25,7 +25,7 @@ public class VentanaParser {
             }
         }
 
-        contParser.add(editorTextoParser);
+        contParser.add(editorTextoParser, BorderLayout.CENTER);
 
         JScrollPane panelScrolleable = new JScrollPane(contParser);
 
