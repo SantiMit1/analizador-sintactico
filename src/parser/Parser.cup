@@ -44,20 +44,20 @@ programa ::=
       DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
       {: reglasAplicadas.add("[Regla 1] programa → DECVAR declaraciones ENDDECVAR PROGRAM_SECTION sentencias ENDPROGRAM_SECTION"); :}
       | PROGRAM_SECTION sentencias ENDPROGRAM_SECTION
-        {: reglasAplicadas.add("[Regla 51] programa → DECVAR ENDDECVAR PROGRAM_SECTION ENDPROGRAM_SECTION"); :}
+        {: reglasAplicadas.add("[Regla 2] programa → PROGRAM_SECTION sentencias ENDPROGRAM_SECTION"); :}
     ;
 
 declaraciones ::=
       declaraciones declaracion
-      {: reglasAplicadas.add("[Regla 2] declaraciones → declaraciones declaracion"); :}
+      {: reglasAplicadas.add("[Regla 3] declaraciones → declaraciones declaracion"); :}
     | declaracion
-      {: reglasAplicadas.add("[Regla 3] declaraciones → declaracion"); :}
+      {: reglasAplicadas.add("[Regla 4] declaraciones → declaracion"); :}
     ;
 
 declaracion ::=
       ID:id COLON tipo:t
       {:
-              reglasAplicadas.add("[Regla 4] declaracion → ID COLON tipo");
+              reglasAplicadas.add("[Regla 5] declaracion → ID COLON tipo");
 
               String nombre = id;
               String tipo   = t;
@@ -74,142 +74,146 @@ declaracion ::=
 
 tipo ::=
       INT
-      {: reglasAplicadas.add("[Regla 5] tipo → INT"); RESULT = "INT"; :}
+      {: reglasAplicadas.add("[Regla 6] tipo → INT"); RESULT = "INT"; :}
     | FLOAT
-      {: reglasAplicadas.add("[Regla 6] tipo → FLOAT"); RESULT = "FLOAT"; :}
+      {: reglasAplicadas.add("[Regla 7] tipo → FLOAT"); RESULT = "FLOAT"; :}
     | STRING
-      {: reglasAplicadas.add("[Regla 7] tipo → STRING"); RESULT = "STRING"; :}
+      {: reglasAplicadas.add("[Regla 8] tipo → STRING"); RESULT = "STRING"; :}
     ;
 
 sentencias ::=
       sentencias sentencia
-      {: reglasAplicadas.add("[Regla 8] sentencias → sentencias sentencia"); :}
+      {: reglasAplicadas.add("[Regla 9] sentencias → sentencias sentencia"); :}
     | sentencia
-      {: reglasAplicadas.add("[Regla 9] sentencias → sentencia"); :}
+      {: reglasAplicadas.add("[Regla 10] sentencias → sentencia"); :}
     ;
 
 sentencia ::=
       assign
-      {: reglasAplicadas.add("[Regla 10] sentencia → assign"); :}
+      {: reglasAplicadas.add("[Regla 11] sentencia → assign"); :}
     | escritura
-      {: reglasAplicadas.add("[Regla 11] sentencia → escritura"); :}
+      {: reglasAplicadas.add("[Regla 12] sentencia → escritura"); :}
     | repeat
-      {: reglasAplicadas.add("[Regla 12] sentencia → repeat"); :}
+      {: reglasAplicadas.add("[Regla 13] sentencia → repeat"); :}
     | if
-      {: reglasAplicadas.add("[Regla 13] sentencia → if"); :}
+      {: reglasAplicadas.add("[Regla 14] sentencia → if"); :}
     | map
-      {: reglasAplicadas.add("[Regla 50] expresion → map"); :}
+      {: reglasAplicadas.add("[Regla 15] sentencia → map"); :}
     ;
 
 assign ::=
       ID ASSIGN expresion
       {:
-        reglasAplicadas.add("[Regla 14] assign → ID ASSIGN expresion");
+        reglasAplicadas.add("[Regla 16] assign → ID ASSIGN expresion");
+      :}
+      | ID ASSIGN CONST_STRING
+      {:
+        reglasAplicadas.add("[Regla 17] assign → ID ASSIGN CONST_STRING");
       :}
     ;
 
 escritura ::=
       SHOW cte
-      {: reglasAplicadas.add("[Regla 15] escritura → SHOW cte"); :}
+      {: reglasAplicadas.add("[Regla 18] escritura → SHOW cte"); :}
     | SHOW ID
-      {: reglasAplicadas.add("[Regla 16] escritura → SHOW ID"); :}
+      {: reglasAplicadas.add("[Regla 19] escritura → SHOW ID"); :}
     ;
 
 repeat ::=
       REPEAT LBRACE sentencias RBRACE UNTIL LPAREN condicion RPAREN
-      {: reglasAplicadas.add("[Regla 17] repeat → REPEAT LBRACE sentencias RBRACE UNTIL LPAREN condicion RPAREN"); :}
+      {: reglasAplicadas.add("[Regla 20] repeat → REPEAT LBRACE sentencias RBRACE UNTIL LPAREN condicion RPAREN"); :}
     ;
 
 if ::=
       IF LPAREN condicion RPAREN LBRACE sentencias RBRACE ELSE LBRACE sentencias RBRACE
-      {: reglasAplicadas.add("[Regla 18] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE ELSE LBRACE sentencias RBRACE"); :}
+      {: reglasAplicadas.add("[Regla 21] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE ELSE LBRACE sentencias RBRACE"); :}
     | IF LPAREN condicion RPAREN LBRACE sentencias RBRACE
-      {: reglasAplicadas.add("[Regla 19] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE"); :}
+      {: reglasAplicadas.add("[Regla 22] if → IF LPAREN condicion RPAREN LBRACE sentencias RBRACE"); :}
     ;
 
 expresion ::=
       expresion PLUS termino
-      {: reglasAplicadas.add("[Regla 20] expresion → expresion PLUS termino"); :}
+      {: reglasAplicadas.add("[Regla 23] expresion → expresion PLUS termino"); :}
     | expresion MINUS termino
-      {: reglasAplicadas.add("[Regla 21] expresion → expresion MINUS termino"); :}
+      {: reglasAplicadas.add("[Regla 24] expresion → expresion MINUS termino"); :}
     | termino
-      {: reglasAplicadas.add("[Regla 22] expresion → termino"); :}
+      {: reglasAplicadas.add("[Regla 25] expresion → termino"); :}
     ;
 
 termino ::=
       termino MULT factor
-      {: reglasAplicadas.add("[Regla 23] termino → termino MULT factor"); :}
+      {: reglasAplicadas.add("[Regla 26] termino → termino MULT factor"); :}
     | termino DIV factor
-      {: reglasAplicadas.add("[Regla 24] termino → termino DIV factor"); :}
+      {: reglasAplicadas.add("[Regla 27] termino → termino DIV factor"); :}
     | factor
-      {: reglasAplicadas.add("[Regla 25] termino → factor"); :}
+      {: reglasAplicadas.add("[Regla 28] termino → factor"); :}
     ;
 
 factor ::=
       ID
-      {: reglasAplicadas.add("[Regla 26] factor → ID"); :}
+      {: reglasAplicadas.add("[Regla 29] factor → ID"); :}
     | CONST_FLOAT
-      {: reglasAplicadas.add("[Regla 27] factor → CONST_FLOAT"); :}
+      {: reglasAplicadas.add("[Regla 30] factor → CONST_FLOAT"); :}
     | CONST_INT
-      {: reglasAplicadas.add("[Regla 28] factor → CONST_INT"); :}
+      {: reglasAplicadas.add("[Regla 31] factor → CONST_INT"); :}
     | CONST_HEX
-      {: reglasAplicadas.add("[Regla 29] factor → CONST_HEX"); :}
+      {: reglasAplicadas.add("[Regla 32] factor → CONST_HEX"); :}
     | LPAREN expresion RPAREN
-      {: reglasAplicadas.add("[Regla 30] factor → LPAREN expresion RPAREN"); :}
+      {: reglasAplicadas.add("[Regla 33] factor → LPAREN expresion RPAREN"); :}
     | map
-      {: reglasAplicadas.add("[Regla 31] factor → map"); :}
+      {: reglasAplicadas.add("[Regla 34] factor → map"); :}
     ;
 
 comparacion ::=
       expresion EQUAL expresion
-      {: reglasAplicadas.add("[Regla 32] comparacion → expresion EQUAL expresion"); :}
+      {: reglasAplicadas.add("[Regla 35] comparacion → expresion EQUAL expresion"); :}
     | expresion NOT_EQUAL expresion
-      {: reglasAplicadas.add("[Regla 33] comparacion → expresion NOT_EQUAL expresion"); :}
+      {: reglasAplicadas.add("[Regla 36] comparacion → expresion NOT_EQUAL expresion"); :}
     | expresion GREATER expresion
-      {: reglasAplicadas.add("[Regla 34] comparacion → expresion GREATER expresion"); :}
+      {: reglasAplicadas.add("[Regla 37] comparacion → expresion GREATER expresion"); :}
     | expresion GREATER_EQUAL expresion
-      {: reglasAplicadas.add("[Regla 35] comparacion → expresion GREATER_EQUAL expresion"); :}
+      {: reglasAplicadas.add("[Regla 38] comparacion → expresion GREATER_EQUAL expresion"); :}
     | expresion LESS expresion
-      {: reglasAplicadas.add("[Regla 36] comparacion → expresion LESS expresion"); :}
+      {: reglasAplicadas.add("[Regla 39] comparacion → expresion LESS expresion"); :}
     | expresion LESS_EQUAL expresion
-      {: reglasAplicadas.add("[Regla 37] comparacion → expresion LESS_EQUAL expresion"); :}
+      {: reglasAplicadas.add("[Regla 40] comparacion → expresion LESS_EQUAL expresion"); :}
     ;
 
 condicion ::=
       comparacion AND comparacion
-      {: reglasAplicadas.add("[Regla 38] condicion → comparacion AND comparacion"); :}
+      {: reglasAplicadas.add("[Regla 41] condicion → comparacion AND comparacion"); :}
     | comparacion OR comparacion
-      {: reglasAplicadas.add("[Regla 39] condicion → comparacion OR comparacion"); :}
+      {: reglasAplicadas.add("[Regla 42] condicion → comparacion OR comparacion"); :}
     | comparacion
-      {: reglasAplicadas.add("[Regla 40] condicion → comparacion"); :}
+      {: reglasAplicadas.add("[Regla 43] condicion → comparacion"); :}
     ;
 
 map ::=
       MAP LPAREN operador cte COMMA LBRACKET lista_expresiones RBRACKET RPAREN
-      {: reglasAplicadas.add("[Regla 41] map → MAP LPAREN operador cte COMMA LBRACKET lista_expresiones RBRACKET RPAREN"); :}
+      {: reglasAplicadas.add("[Regla 44] map → MAP LPAREN operador cte COMMA LBRACKET lista_expresiones RBRACKET RPAREN"); :}
     ;
 
 lista_expresiones ::=
       lista_expresiones COMMA expresion
-      {: reglasAplicadas.add("[Regla 42] lista_expresiones → lista_expresiones COMMA expresion"); :}
+      {: reglasAplicadas.add("[Regla 45] lista_expresiones → lista_expresiones COMMA expresion"); :}
     | expresion
-      {: reglasAplicadas.add("[Regla 43] lista_expresiones → expresion"); :}
+      {: reglasAplicadas.add("[Regla 46] lista_expresiones → expresion"); :}
     ;
 
 operador ::=
       PLUS
-      {: reglasAplicadas.add("[Regla 44] operador → PLUS"); :}
+      {: reglasAplicadas.add("[Regla 47] operador → PLUS"); :}
     | MULT
-      {: reglasAplicadas.add("[Regla 45] operador → MULT"); :}
+      {: reglasAplicadas.add("[Regla 48] operador → MULT"); :}
     ;
 
 cte ::=
       CONST_INT
-      {: reglasAplicadas.add("[Regla 46] cte → CONST_INT"); :}
+      {: reglasAplicadas.add("[Regla 49] cte → CONST_INT"); :}
     | CONST_FLOAT
-      {: reglasAplicadas.add("[Regla 47] cte → CONST_FLOAT"); :}
+      {: reglasAplicadas.add("[Regla 50] cte → CONST_FLOAT"); :}
     | CONST_STRING
-      {: reglasAplicadas.add("[Regla 48] cte → CONST_STRING"); :}
+      {: reglasAplicadas.add("[Regla 51] cte → CONST_STRING"); :}
     | CONST_HEX
-      {: reglasAplicadas.add("[Regla 49] cte → CONST_HEX"); :}
+      {: reglasAplicadas.add("[Regla 52] cte → CONST_HEX"); :}
     ;
