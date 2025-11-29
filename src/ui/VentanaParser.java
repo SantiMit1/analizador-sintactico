@@ -13,8 +13,6 @@ public class VentanaParser {
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
 
-        JPanel contParser = new JPanel(new BorderLayout());
-
         editorTextoParser = new JTextArea();
         editorTextoParser.setEditable(false);
         editorTextoParser.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -25,9 +23,7 @@ public class VentanaParser {
             }
         }
 
-        contParser.add(editorTextoParser, BorderLayout.CENTER);
-
-        JScrollPane panelScrolleable = new JScrollPane(contParser);
+        JScrollPane panelScrolleable = new JScrollPane(editorTextoParser);
 
         JButton salir = new JButton("Salir");
         salir.addActionListener(e -> frame.dispose());

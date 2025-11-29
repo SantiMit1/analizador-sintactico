@@ -13,8 +13,6 @@ public class VentanaRespuesta {
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
 
-        JPanel contRespuesta = new JPanel(new BorderLayout());
-        
         editorTextoRespuesta = new JTextArea();
         editorTextoRespuesta.setEditable(false);
         editorTextoRespuesta.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -25,9 +23,7 @@ public class VentanaRespuesta {
             }
         }
 
-        contRespuesta.add(editorTextoRespuesta, BorderLayout.CENTER);
-
-        JScrollPane panelScrolleable = new JScrollPane(contRespuesta);
+        JScrollPane panelScrolleable = new JScrollPane(editorTextoRespuesta);
 
         JButton salir = new JButton("Salir");
         salir.addActionListener(e -> frame.dispose());
