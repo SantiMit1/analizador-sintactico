@@ -154,13 +154,6 @@ analizador-sintactico/
 └── java-cup-11b-runtime.jar    # Runtime de Java CUP
 ```
 
-## 🧪 Archivos de Prueba
-
-El proyecto incluye archivos de ejemplo para probar el analizador:
-
-- **archivo.txt**: Ejemplo básico con declaración de variables y asignación
-- **prueba.txt**: Ejemplo completo con todas las características del lenguaje
-
 ## 🔍 Tabla de Símbolos
 
 El analizador genera una tabla de símbolos (`ts.txt`) que contiene:
@@ -172,19 +165,11 @@ El analizador genera una tabla de símbolos (`ts.txt`) que contiene:
 
 ## 🎓 Contexto Académico
 
-Este proyecto fue desarrollado como **Trabajo Práctico N°1** para la materia **Teoría de la Computación**.
-
-## 👥 Autor
-
-- Santiago Mitilieri ([@SantiMit1](https://github.com/SantiMit1))
+Este proyecto fue desarrollado como **Trabajo Práctico** para la materia **Teoría de la Computación**.
 
 ## 📄 Licencia
 
 Este proyecto es de código abierto y está disponible con fines educativos.
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para sugerencias y mejoras.
 
 ---
 
